@@ -18,7 +18,7 @@ const PlayerSelector = () => {
 
   return (
     <section className="flex justify-center">
-      <div className="m-52 mt-28">
+      <div className="m-52 mt-28 mb-24">
         <button
           className="py-4 px-4 text-2xl bg-white border border-gray-300 flex rounded-sm"
           onClick={() => setIsOpen(!isOpen)}
