@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PlayerSelector from './PlayerSelector';
-import ExtraStats from './ExtraStats'; // Import the comparison component
+import Compare from './Compare';  // Import the comparison component
+import ExtraStats from './ExtraStats'; // Import the ExtraStats component
 
 const Main = () => {
   const [selectedPlayers, setSelectedPlayers] = useState([null, null]); // Array to store two selected players
-  const [isComparing, setIsComparing] = useState(false); // Flag to toggle comparison view
+  const [isComparing, setIsComparing] = useState(false); // Flag to toggle between Compare and ExtraStats view
 
   // Update selected players
   const handlePlayerSelect = (player, index) => {
@@ -16,13 +17,13 @@ const Main = () => {
   // Handle Compare button click
   const handleCompare = () => {
     if (selectedPlayers[0] && selectedPlayers[1]) {
-      setIsComparing(true); // Show comparison
+      setIsComparing(true); // Switch to comparison view
     }
   };
 
   return (
     <>
-      <main className="flex justify-center mt-16">
+      <main className="flex justify-center">
         {/* First Player Selector */}
         <PlayerSelector onSelect={(player) => handlePlayerSelect(player, 0)} />
         <span className="text-xl text-white mt-32">VS</span>
@@ -42,9 +43,11 @@ const Main = () => {
         </div>
       )}
 
-      {/* Render the comparison view when isComparing is true */}
-      {isComparing && selectedPlayers[0] && selectedPlayers[1] && (
-        <ExtraStats player1={selectedPlayers[0]} player2={selectedPlayers[1]} />
+      {/* Conditionally render Compare or ExtraStats */}
+      {isComparing ? (
+        <Compare player1={selectedPlayers[0]} player2={selectedPlayers[1]} />
+      ) : (
+        <ExtraStats />
       )}
     </>
   );
