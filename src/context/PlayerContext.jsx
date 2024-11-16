@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Create context
 const PlayerContext = createContext();
 
-// Provider Component
 export const PlayerProvider = ({ children }) => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,5 +33,4 @@ export const PlayerProvider = ({ children }) => {
   );
 };
 
-// Custom Hook for convenience
 export const usePlayers = () => useContext(PlayerContext);

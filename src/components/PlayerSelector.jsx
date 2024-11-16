@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { usePlayers } from '../context/PlayerContext'; // Assuming you have a context to fetch players
+import { usePlayers } from '../context/PlayerContext';
 
 const PlayerSelector = ({ onSelect }) => {
   const { players, loading, error } = usePlayers();
@@ -11,37 +11,33 @@ const PlayerSelector = ({ onSelect }) => {
 
   const containerRef = useRef(null);
 
-  // Handle player selection
   const handleSelect = (player) => {
     setSelectedPlayer(player);
-    setIsOpen(false); // Close dropdown after selection
-    onSelect(player); // Notify parent with the selected player
+    setIsOpen(false);
+    onSelect(player);
   };
 
-  // Filter players based on search query
   const filteredPlayers = useMemo(() => {
     return players
       .filter((player) =>
         player.playerName.toLowerCase().includes(searchQuery.toLowerCase())
       )
-      .sort((a, b) => a.playerName.localeCompare(b.playerName)); // Sort alphabetically
+      .sort((a, b) => a.playerName.localeCompare(b.playerName));
   }, [players, searchQuery]);
 
-  // Load more players when needed
   useEffect(() => {
-    const playersToShow = filteredPlayers.slice(0, page * 20); // Load 20 players per page
+    const playersToShow = filteredPlayers.slice(0, page * 20);
     setVisiblePlayers(playersToShow);
   }, [filteredPlayers, page]);
 
   const handleScroll = () => {
     const container = containerRef.current;
     if (container.scrollHeight - container.scrollTop === container.clientHeight) {
-      setPage(prevPage => prevPage + 1); // Load more players if at the bottom
+      setPage(prevPage => prevPage + 1);
     }
   };
 
-  // Loading and error handling
-  if (loading) return <div>Loading players...</div>;
+  if (loading) return <div>Loading players... (This may take a while)</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -49,7 +45,7 @@ const PlayerSelector = ({ onSelect }) => {
       <div className="m-52 mt-28 mb-16">
         <button
           className="py-4 px-4 text-2xl bg-white border border-gray-300 flex items-center rounded-sm w-72"
-          onClick={() => setIsOpen(!isOpen)} // Toggle dropdown
+          onClick={() => setIsOpen(!isOpen)}
         >
           <div className="flex gap-4 w-full">
             {selectedPlayer ? (
@@ -61,7 +57,7 @@ const PlayerSelector = ({ onSelect }) => {
               <span>Select a player</span>
             )}
           </div>
-          <span className="ml-auto">&#9662;</span> {/* Dropdown icon */}
+          <span className="ml-auto">&#9662;</span>
         </button>
 
         {isOpen && (
@@ -70,11 +66,10 @@ const PlayerSelector = ({ onSelect }) => {
             className="absolute w-72 bg-white border border-gray-300 rounded-sm z-10 max-h-48 overflow-y-auto"
             onScroll={handleScroll}
           >
-            {/* Search input */}
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} // Update search query
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search players"
               className="w-full py-2 px-4 border-b border-gray-300 focus:outline-none"
             />
@@ -84,7 +79,7 @@ const PlayerSelector = ({ onSelect }) => {
                   <li
                     key={player.name}
                     className="py-2 px-4 flex items-center cursor-pointer hover:bg-gray-100"
-                    onClick={() => handleSelect(player)} // Set selected player on click
+                    onClick={() => handleSelect(player)} 
                   >
                     <img src={player.teamLogo} alt={player.playerName} className="w-6 h-6 rounded-full mr-4" />
                     <span className="ml-2">{player.playerName}</span>

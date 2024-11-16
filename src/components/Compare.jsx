@@ -105,7 +105,7 @@ const Compare = ({ player1, player2 }) => {
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-5 h-5 bg-green-500 rounded-full flex justify-center items-center">
-              <span className="text-white text-xs"><img src="../public/kill.png" alt="Kill icon" /></span> {/* Crosshair icon for kills */}
+              <span className="text-white text-xs"><img src="/kill.png" alt="Kill icon" /></span> {/* Crosshair icon for kills */}
             </div>
             <span className="text-gray-700">Kills</span>
           </div>
@@ -121,7 +121,7 @@ const Compare = ({ player1, player2 }) => {
         <div className="w-full flex items-center justify-between mt-4">
           <div className="flex items-center space-x-2">
             <div className="w-5 h-5 bg-red-500 rounded-full flex justify-center items-center">
-              <span className="text-white text-xs"><img className="w-3 h-3" src="../public/skull.png" alt="" /></span> {/* Skull icon for deaths */}
+              <span className="text-white text-xs"><img className="w-3 h-3" src="/skull.png" alt="" /></span> {/* Skull icon for deaths */}
             </div>
             <span className="text-gray-700">Deaths</span>
           </div>
