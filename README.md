@@ -34,7 +34,7 @@ Home Page             |  Top Players         |  Compare Page          |  Explain
 
 ## How It Works
 
-CSComparison works by fetching real-time data through a custom REST API, which collects and processes player statistics using a **Java-based web scraper**. The scraper, powered by **Selenium** and **ChromeDriver**, automates web browsers to scrape up-to-date information on professional Counter-Strike 2 players.
+CSComparison works by fetching real-time data through a custom [REST API](https://github.com/KDominikk00/HLTVScraper), which collects and processes player statistics using a **Java-based web scraper**. The scraper, powered by **Selenium** and **ChromeDriver**, automates web browsers to scrape up-to-date information on professional Counter-Strike 2 players.
 
 The data is served via a REST API built using **Java Spring Boot**, which handles player queries and delivers the stats to the React frontend. The frontend then displays the statistics, allowing users to compare different players side-by-side across multiple performance categories.
 
@@ -42,7 +42,3 @@ The data is served via a REST API built using **Java Spring Boot**, which handle
 
 The backend is composed of a **REST API** and a **web scraper**. The **API** is built with **Java Spring Boot** and **Spring JPA** to manage data storage and requests. The **web scraper** uses **Selenium** with **ChromeDriver** to automate data collection from websites, fetching real-time player statistics.
 
-- **API**: Handles requests and sends player data to the frontend for visualization.
-- **Web Scraper**: Uses **Selenium** and **ChromeDriver** to scrape player stats from online sources and keep the database updated with the latest performance metrics.
-
-You can find the full repository for the **API** and **Web Scraper** [here](https://github.com/KDominikk00/CSComparison-API).
