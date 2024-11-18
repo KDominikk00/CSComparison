@@ -71,14 +71,14 @@ const ExtraStats = () => {
     const player2Rating = parseFloat(player2?.rating || 0);
 
     return (
-        <section className='w-full max-w-7xl bg-white m-auto rounded-lg shadow-lg p-8'>
+        <section className='w-full max-w-7xl bg-white m-auto rounded-lg shadow-lg p-4 sm:p-8'>
             <h1 className='text-4xl font-semibold text-center mb-12 text-gray-800'>Recent Performances</h1>
 
-            <div className='flex justify-between space-x-12'>
+            <div className='flex flex-col sm:flex-row justify-between space-y-8 sm:space-y-0 sm:space-x-12'>
                 {/* Player 1 Comparison */}
                 <div className='flex-1 bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 p-6 rounded-lg shadow-xl'>
                     <div className='flex items-center justify-center'>
-                        <img className='w-24 h-24 rounded-full shadow-md' src={player1.teamLogo} alt={player1.team} />
+                        <img className='w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-md' src={player1.teamLogo} alt={player1.team} />
                     </div>
                     <h2 className='text-2xl font-semibold mt-6 text-center'>{player1.playerName}</h2>
                     <p className='text-center text-sm text-gray-600'>{player1.team}</p>
@@ -120,7 +120,7 @@ const ExtraStats = () => {
                 {/* Player 2 Comparison */}
                 <div className='flex-1 bg-gradient-to-r from-green-50 via-green-100 to-green-200 p-6 rounded-lg shadow-xl'>
                     <div className='flex items-center justify-center'>
-                        <img className='w-24 h-24 rounded-full shadow-md' src={player2.teamLogo} alt={player2.team} />
+                        <img className='w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-md' src={player2.teamLogo} alt={player2.team} />
                     </div>
                     <h2 className='text-2xl font-semibold mt-6 text-center'>{player2.playerName}</h2>
                     <p className='text-center text-sm text-gray-600'>{player2.team}</p>
@@ -155,32 +155,34 @@ const ExtraStats = () => {
             {/* Optional Stats Table */}
             <div className='mt-12'>
                 <h2 className='text-3xl font-semibold mb-6 text-center text-gray-800'>Top Players by HLTV Rating 1.0</h2>
-                <table className='min-w-full table-auto text-left'>
-                    <thead>
-                        <tr className='bg-gray-100'>
-                            <th className='px-6 py-3 text-sm text-gray-600'>Player</th>
-                            <th className='px-6 py-3 text-sm text-gray-600'>Team</th>
-                            <th className='px-6 py-3 text-sm text-gray-600'>Maps</th>
-                            <th className='px-6 py-3 text-sm text-gray-600'>Rounds</th>
-                            <th className='px-6 py-3 text-sm text-gray-600'>K/D Diff</th>
-                            <th className='px-6 py-3 text-sm text-gray-600'>K/D</th>
-                            <th className='px-6 py-3 text-sm text-gray-600'>Rating 1.0</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {players.slice(0, 50).map((player, index) => (
-                            <tr key={index} className='border-t'>
-                                <td className='px-6 py-4'>{player.playerName}</td>
-                                <td className='px-6 py-4 w-5'><img src={player.teamLogo} alt="teamLogo" /></td>
-                                <td className='px-6 py-4'>{player.maps}</td>
-                                <td className='px-6 py-4'>{player.rounds}</td>
-                                <td className={`px-6 py-4 ${getKDDiffClass(player.kddiff)}`}>{player.kddiff}</td>
-                                <td className='px-6 py-4'>{player.kd}</td>
-                                <td className={`px-6 py-4 ${getRatingClass(player.rating)}`}>{player.rating}</td>
+                <div className="overflow-x-auto">
+                    <table className='min-w-full table-auto text-left'>
+                        <thead>
+                            <tr className='bg-gray-100'>
+                                <th className='px-6 py-3 text-sm text-gray-600'>Player</th>
+                                <th className='px-6 py-3 text-sm text-gray-600'>Team</th>
+                                <th className='px-6 py-3 text-sm text-gray-600'>Maps</th>
+                                <th className='px-6 py-3 text-sm text-gray-600'>Rounds</th>
+                                <th className='px-6 py-3 text-sm text-gray-600'>K/D Diff</th>
+                                <th className='px-6 py-3 text-sm text-gray-600'>K/D</th>
+                                <th className='px-6 py-3 text-sm text-gray-600'>Rating 1.0</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {players.slice(0, 50).map((player, index) => (
+                                <tr key={index} className='border-t'>
+                                    <td className='px-6 py-4'>{player.playerName}</td>
+                                    <td className='px-6 py-4 w-5'><img src={player.teamLogo} alt="teamLogo" /></td>
+                                    <td className='px-6 py-4'>{player.maps}</td>
+                                    <td className='px-6 py-4'>{player.rounds}</td>
+                                    <td className={`px-6 py-4 ${getKDDiffClass(player.kddiff)}`}>{player.kddiff}</td>
+                                    <td className='px-6 py-4'>{player.kd}</td>
+                                    <td className={`px-6 py-4 ${getRatingClass(player.rating)}`}>{player.rating}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     );
