@@ -1,6 +1,12 @@
+![CSComparison](https://gcdnb.pbrd.co/images/0yITKCsq3sIS.png?o=1)
+
 # CSComparison: Compare Stats of Pro Counter-Strike 2 Players
 
 **CSComparison** is a web application that allows users to compare the stats of current professional Counter-Strike 2 players. Built with **React** for the frontend and **Java Spring Boot** with **Spring JPA** for the backend, it offers a dynamic and intuitive interface to analyze player performance across various metrics.
+
+Home Page             |  Top Players         |  Compare Page          |  Explained Section
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![Home Page](https://i.imgur.com/P3WFE5P.png)  |  ![Top Players](https://i.imgur.com/LyoiSXw.png) |  ![Compare Page](https://i.imgur.com/u4cJErB.png) |  ![Explained Section](https://i.imgur.com/gOeqLWh.png)
 
 ## Features
 
