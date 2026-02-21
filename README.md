@@ -1,4 +1,6 @@
-![CSComparison](https://gcdnb.pbrd.co/images/0yITKCsq3sIS.png?o=1)
+<p align="center">
+  <img src="public/CSComparison.png" alt="CSComparison Banner" width="100%" />
+</p>
 
 # CSComparison: Compare Stats of Pro Counter-Strike 2 Players
 
