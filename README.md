@@ -11,10 +11,10 @@
 </p>
 
 <p align="center">
-  <img alt="React 18" src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black" />
-  <img alt="Vite 5" src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white" />
-  <img alt="Tailwind CSS 3" src="https://img.shields.io/badge/Tailwind%20CSS-3-06B6D4?logo=tailwindcss&logoColor=white" />
-  <img alt="ESLint 9" src="https://img.shields.io/badge/ESLint-9-4B32C3?logo=eslint&logoColor=white" />
+  <img alt="React 19" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" />
+  <img alt="Vite 8" src="https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white" />
+  <img alt="Tailwind CSS 4" src="https://img.shields.io/badge/Tailwind%20CSS-4-06B6D4?logo=tailwindcss&logoColor=white" />
+  <img alt="Vitest" src="https://img.shields.io/badge/tested%20with-Vitest-6E9F18?logo=vitest&logoColor=white" />
   <img alt="Deployed on Vercel" src="https://img.shields.io/badge/Vercel-deployed-black?logo=vercel" />
 </p>
 
@@ -25,20 +25,21 @@
 
 <p align="center">
   <img src="docs/screenshots/leaderboard.jpg" width="23%" alt="Leaderboard" />
-  <img src="docs/screenshots/compare.jpg" width="23%" alt="Two players selected" />
-  <img src="docs/screenshots/categories.jpg" width="23%" alt="Stat categories side by side" />
+  <img src="docs/screenshots/compare.jpg" width="23%" alt="Head to head" />
+  <img src="docs/screenshots/categories.jpg" width="23%" alt="Stat categories as mirrored bars" />
   <img src="docs/screenshots/mobile.jpg" width="10%" alt="Mobile layout" />
 </p>
 
 ## Features
 
-- **Leaderboard.** Without a selection the page ranks players by score, 50 at a time with a "Show more" button, and shows when the stats were last refreshed.
-- **Searchable player pickers.** Type to filter the roughly 250 players, each shown with their team logo.
-- **Instant comparison.** As soon as two players are picked, their cards and stat tables appear, with no extra button.
-- **Every stat category.** Overview, results over the last 6 months, then Main, Performance, AIM, Grenades, Primary devices, Pistols and Economy, plus accuracy by body part and score per map.
-- **Better value highlighted.** The higher number is green, except for stats where lower is better (deaths, opening deaths). Stats with no clear direction, such as kill cost, are not highlighted.
-- **Loading and error states.** A clear message while players load and when the API is unreachable or still collecting data.
-- **Responsive.** Works from phone to desktop.
+- **Head to head.** Pick two players and see them face to face with their scores, and a tally of how many stats each one wins.
+- **Mirrored stat bars.** Every stat is a pair of bars growing from the centre, player A in blue and player B in orange. The winner's side is bright, the other side dimmed. Stats where lower is better (deaths, opening deaths) are handled, and stats with no clear direction, such as kill cost, are not scored.
+- **Every stat category.** Overview, results over the last 6 months, then Main, Performance, AIM, Grenades, Primary devices, Pistols and Economy, plus accuracy by body part and score per map, with a sticky row of links to jump between them.
+- **Shareable links.** The two players live in the address bar (`/?a=zywoo&b=donk`), so any comparison can be sent as a link.
+- **Sortable leaderboard.** Search by player or team, sort by score, K/D, kills or damage per round, and add a player to the comparison with one click. 50 rows at a time.
+- **Keyboard friendly pickers.** Searchable dropdowns with arrow keys, enter and escape, a swap button and a reset.
+- **Loading and error states.** Skeletons while stats load, a note when the free server is waking up, and a retry button if the API cannot be reached.
+- **Responsive and accessible.** Works from phone to desktop, with labelled controls, sort state announced to screen readers and reduced-motion support.
 - **No accounts.** Nothing is stored about visitors.
 
 ## How it works
@@ -58,11 +59,11 @@ The page loads the list of player summaries once and keeps it in a React context
 
 | Area | Choice |
 | --- | --- |
-| UI | React 18, function components and hooks |
-| Build | Vite 5 with `@vitejs/plugin-react` |
-| Styling | Tailwind CSS 3 (utility classes, no custom CSS beyond the page background) |
-| Data | Plain `fetch` with `AbortController`, a context for the player list and a `usePlayer` hook for single players |
-| Quality | ESLint 9 (flat config, React and React Hooks rules) |
+| UI | React 19, function components and hooks |
+| Build | Vite 8 with `@vitejs/plugin-react` |
+| Styling | Tailwind CSS 4 via its Vite plugin, theme tokens in `src/index.css`, Inter as the font |
+| Data | Plain `fetch` with `AbortController`, a context for the player list, a `usePlayer` hook for single players, the selection kept in the URL |
+| Quality | ESLint 9 (flat config, React and React Hooks rules), Vitest for the comparison logic |
 | Hosting | Vercel, deployed from `main` on every push |
 
 ## Getting started
@@ -87,6 +88,7 @@ The live API only accepts requests from the deployed site, so local development 
 | `npm run build` | Production build in `dist` |
 | `npm run preview` | Serve the production build locally |
 | `npm run lint` | ESLint |
+| `npm test` | Vitest, covers the comparison logic |
 
 ## Configuration
 
@@ -98,19 +100,26 @@ The live API only accepts requests from the deployed site, so local development 
 
 ```
 src/
-  main.jsx, App.jsx      entry point and page layout
-  api/players.js         fetchPlayers, fetchPlayer (base URL from VITE_API_BASE_URL)
-  context/               PlayerProvider, the player list shared by the whole page
-  hooks/usePlayer.js     loads one player's full stats
+  main.jsx, App.jsx        entry point and page shell
+  index.css                Tailwind theme: colours for the two sides, font, background
+  api/players.js           fetchPlayers, fetchPlayer (base URL from VITE_API_BASE_URL)
+  context/                 PlayerProvider, the player list shared by the whole page
+  hooks/
+    usePlayer.js           loads one player's full stats
+    useSelection.js        the two selected players, synced with the URL
+  lib/
+    compare.js             builds every comparison section, decides winners, tallies the score
+    compare.test.js        unit tests for the above
+    format.js, tones.js    number and date formatting, colours of side A and B
   components/
-    Main.jsx             holds the two selected players, picks leaderboard or comparison
-    PlayerSelector.jsx   searchable dropdown
-    Leaderboard.jsx      ranked table with "Show more"
-    Compare.jsx          builds the comparison rows for every section
-    StatTable.jsx        side-by-side rows, highlights the better value
-    PlayerCard.jsx, Avatar.jsx, Navbar.jsx, Footer.jsx
-  lib/format.js          number formatting
-docs/screenshots/        images used in this README
+    Main.jsx               pickers, then leaderboard or comparison
+    Pickers.jsx, PlayerPicker.jsx    the two dropdowns and the swap and reset controls
+    Leaderboard.jsx        searchable, sortable ranking
+    Compare.jsx            loads both players and lays out the comparison
+    HeadToHead.jsx, SectionNav.jsx, StatSection.jsx    hero, section links, mirrored bars
+    LoadState.jsx, Skeleton.jsx    loading and error states
+    Header.jsx, Footer.jsx, Avatar.jsx, TeamLogo.jsx, icons.jsx
+docs/screenshots/          images used in this README
 ```
 
 ## Deployment
@@ -123,6 +132,5 @@ The site runs on Vercel. Import the repository, keep the detected Vite preset an
 - **Weekly data.** The stats are refreshed once a week by a scrape that runs on the maintainer's computer. If it misses a week, the previous numbers stay up.
 - **Partial player pool.** Only players from the ranked list and current tournaments are included, around 250 in total. Players without a photo get a plain circle.
 - **Windows differ.** Results, accuracy and map stats cover the last 6 months, while the in-game categories cover the last 15 matches.
-- **No shareable links.** The selected players are not in the URL yet, and there is no router.
-- **No automated tests.** Linting and the production build are the checks for now.
+- **Few tests.** Only the comparison logic is unit tested. The components are checked by hand, plus linting and the production build.
 - **Unofficial.** The site is a fan project, not affiliated with bo3.gg or Valve. Stats are informational.
