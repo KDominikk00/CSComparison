@@ -1,16 +1,14 @@
-import Navbar from './components/Navbar';
-import { PlayerProvider } from './context/PlayerContext';
-import Main from './components/Main';
 import Footer from './components/Footer';
+import Header from './components/Header';
+import Main from './components/Main';
+import { PlayerProvider } from './context/PlayerContext';
 
 const App = () => (
-  <div>
-    <Navbar />
-    <PlayerProvider>
-      <Main />
-    </PlayerProvider>
+  <PlayerProvider>
+    <Header />
+    <Main />
     <Footer />
-  </div>
+  </PlayerProvider>
 );
 
 export default App;

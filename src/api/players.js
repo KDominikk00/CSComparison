@@ -1,7 +1,13 @@
 const BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080').replace(/\/$/, '');
 
 async function get(path, signal) {
-  const response = await fetch(`${BASE_URL}/api/v1${path}`, { signal });
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}/api/v1${path}`, { signal });
+  } catch (error) {
+    if (error.name === 'AbortError') throw error;
+    throw new Error('Could not reach the server. Check your connection and try again.');
+  }
   if (response.status === 503) {
     throw new Error('The server is still collecting player data. Please try again in a few minutes.');
   }

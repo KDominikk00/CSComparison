@@ -1,5 +1,45 @@
 @import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink-950: #07090d;
+  --color-ink-900: #0c1018;
+  --color-ink-800: #121722;
+  --color-ink-700: #1a2132;
+  --color-ink-600: #252d42;
+
+  /* One colour per side of the comparison */
+  --color-side-a: #4da3ff;
+  --color-side-b: #ff7a4d;
+  --color-win: #34d399;
+}
+
+html {
+  color-scheme: dark;
+}
 
 body {
-  background-color: #29377e;
+  min-height: 100vh;
+  color: var(--color-slate-100);
+  background-color: var(--color-ink-950);
+  background-image:
+    radial-gradient(56rem 30rem at 10% -8%, rgb(77 163 255 / 0.24), transparent 70%),
+    radial-gradient(56rem 30rem at 90% -8%, rgb(255 122 77 / 0.20), transparent 70%);
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-side-a);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
