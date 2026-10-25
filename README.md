@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/CSComparison.png" width="320" alt="CSComparison logo" />
+  <img src="public/CSComparison.png" width="160" alt="CSComparison logo" />
 </p>
 
 <h1 align="center">CSComparison</h1>
