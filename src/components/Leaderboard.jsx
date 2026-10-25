@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { usePlayers } from '../context/PlayerContext';
+import Avatar from './Avatar';
 import { formatNumber } from '../lib/format';
 
 const PAGE_SIZE = 50;
@@ -41,7 +42,7 @@ const Leaderboard = () => {
                 <td className="px-4 py-3 text-gray-500">{index + 1}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <img src={player.avatarUrl} alt="" className="w-8 h-8 rounded-full object-cover" />
+                    <Avatar url={player.avatarUrl} className="w-8 h-8 rounded-full" />
                     <span className="font-medium">{player.nickname}</span>
                   </div>
                 </td>
